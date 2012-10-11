@@ -1,3 +1,6 @@
+var FlickrClient = {
+		apiKey : "6f4baf862f03c499afcd7a4589f5b791"
+};
 var SetsView = Backbone.View.extend({
 	
 	initialize : function (options) {
@@ -7,10 +10,12 @@ var SetsView = Backbone.View.extend({
 	
 	events : {
 		'click #search' : 'doSearch',
-		'click .setlink' : 'browsePhotoSet'
+		'click .setlink' : 'browsePhotoSet',
+		'submit #searchForm' : 'doSearch'
 	},
 	
 	doSearch : function(e) {
+		e.preventDefault();
 		this.doSearchForUsername($('#username').val());
 	},
 	
@@ -59,8 +64,8 @@ var SetsCollection = Backbone.Collection.extend({
 	initialize : function(models, options) {
 		this.userid = '';
 		//this.view = options.view;
-		this.url = 'http://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=666a3e7d3ff664774385a6b3ea5b0723&format=json&nojsoncallback=1';
-		this.userNameApiUrl = 'http://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=666a3e7d3ff664774385a6b3ea5b0723&format=json&nojsoncallback=1';
+		this.url = 'http://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key='+FlickrClient.apiKey+'&format=json&nojsoncallback=1';
+		this.userNameApiUrl = 'http://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key='+FlickrClient.apiKey+'&format=json&nojsoncallback=1';
 	},
 	
 	sync : function(method, model, options) {
@@ -104,7 +109,7 @@ var PhotoCollection = Backbone.Collection.extend({
 	model : PhotoModel,
 	
 	initialize : function (models, options) {
-		this.url = 'http://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=666a3e7d3ff664774385a6b3ea5b0723&extras=+url_s&format=json&nojsoncallback=1';
+		this.url = 'http://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key='+FlickrClient.apiKey+'&extras=url_s,url_l,url_m&format=json&nojsoncallback=1';
 	}
 });
 

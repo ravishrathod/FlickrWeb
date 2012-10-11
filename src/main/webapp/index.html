@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/ext/jquery.js"></script>
+<script type="text/javascript" src="js/ext/underscore.js"></script>
+<script type="text/javascript" src="js/ext/template.js"></script>
+<script type="text/javascript" src="js/ext/backbone.js"></script>
+<script type="text/javascript" src="js/flickrClient.js"></script>
+</head>
+
+<body>
+	<form id="searchForm">
+		<div class="container-fluid" style="padding-top:10px">
+			<input type="text" class="input-medium search-query" id="username" placeholder="Enter Username">
+			<input id="search" type="button" value="Search" class="btn"/>
+		</div>
+	</form>
+	<br/>
+	<div id="container" class="container-fluid"></div>
+</body>
+
+<script type="text/template" id="photoAblumTemplate">
+	<ul>
+		<% for(var i = 0; i< sets.length; i++){ %>
+			<a>
+				<li class="setlink" data_setid="<%=sets[i].id%>" ><%=sets[i].title['_content']%> - <%=sets[i].photos%> Photos</li>
+			</a>
+		<% } %>
+	</ul>
+</script>
+
+<script type="text/template" id="photosetTemplate">
+	<ul class="thumbnails">
+		<% for(var i=0;i<photos.length;i++){ %>
+		<li class="span4">
+			<a class="thumbnail" href="javascript://">
+			    	<img src="<%= photos[i]['url_s'] %>" title="<%= photos[i].title %>">
+		    </a>
+		</li>
+		<%}%>
+	</ul>
+</script>
+
+</html>
